@@ -3,8 +3,8 @@
   "short_name": "Alex Chen",
   "start_url": "/LandingPage/",
   "display": "standalone",
-  "background_color": "#FFF0F5",
-  "theme_color": "#FFF0F5",
+  "background_color": "#FFE0E8",
+  "theme_color": "#FFE0E8",
   "orientation": "portrait-primary",
   "description": "Full-stack developer building performant web apps.",
   "icons": [

@@ -2,12 +2,12 @@
        ROOT VARIABLES & RESET
        ═══════════════════════════════════════════════════════ */
     :root {
-      --bg: #FFF0F5;
-      --surface: #F0F4FF;
+      --bg: #FFE0E8;
+      --surface: #E0E8FF;
       --text: #3D3D56;
       --text-muted: #8888A0;
       --accent: #FF6B35;
-      --accent-text: #FFF0F5;
+      --accent-text: #FFFFFF;
       --blue: #4A6CF7;
       --pink: #FF8FA3;
       --green: #06D6A0;
@@ -976,7 +976,7 @@
       content: '';
       position: absolute;
       inset: 0;
-      background: linear-gradient(135deg, transparent 40%, rgba(255,255,255,0.1));
+      background: linear-gradient(135deg, transparent 40%, rgba(61,61,86,0.08));
       opacity: 0;
       transition: opacity 0.3s;
     }
@@ -1333,7 +1333,7 @@
       margin-top: 3rem;
       text-align: center;
       padding-top: 1.5rem;
-      border-top: 1px solid rgba(255,255,255,0.1);
+      border-top: 1px solid rgba(61,61,86,0.12);
     }
 
     /* ═══════════════════════════════════════════════════════
@@ -1731,7 +1731,7 @@
     .skill-bar-track {
       flex: 1;
       height: 10px;
-      background: rgba(255,255,255,0.1);
+      background: rgba(61,61,86,0.08);
       border: 2px solid var(--text);
       position: relative;
       overflow: hidden;
