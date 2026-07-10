@@ -1,0 +1,4 @@
+[     550ms] [LOG] %c Arun Kumar  background: #FFFFFF; color: #E53935; font-size: 2rem; font-weight: bold; padding: 10px 20px; border: 3px solid #1A1A1A; @ https://mariakevin.github.io/LandingPage/script.js:472
+[     551ms] [LOG] %c Full-stack developer from Chennai building bold experiences  background: #E53935; color: white; font-size: 0.875rem; padding: 5px 10px; @ https://mariakevin.github.io/LandingPage/script.js:473
+[     551ms] [LOG] %c Press ? for keyboard shortcuts  background: #F2F2F2; color: #1A1A1A; font-size: 0.8rem; padding: 5px 10px; border: 3px solid #1A1A1A; @ https://mariakevin.github.io/LandingPage/script.js:474
+[     866ms] [WARNING] <meta name="apple-mobile-web-app-capable" content="yes"> is deprecated. Please include <meta name="mobile-web-app-capable" content="yes"> @ https://mariakevin.github.io/LandingPage/:0

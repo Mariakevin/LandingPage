@@ -172,7 +172,7 @@
         }).then(r => { if (r.ok) done(); else throw Error(); }).catch(() => {
           formSubmit.innerHTML = originalText;
           formSubmit.classList.remove('loading');
-          showToast('Could not send. Try alex@buildwithchen.com', 'error');
+          showToast('Could not send. Try arun@arunkumar.dev', 'error');
         });
       } else {
         setTimeout(done, 1200);

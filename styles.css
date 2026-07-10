@@ -178,14 +178,14 @@
        SCROLL-DRIVEN ANIMATIONS
        ═══════════════════════════════════════════════════════ */
     @supports (animation-timeline: view()) {
-      .reveal-up { animation: slide-up linear both; animation-timeline: view(block); animation-range: entry 0% entry 50%; }
-      .reveal-scale { animation: pop-in var(--spring) both; animation-timeline: view(block); animation-range: entry 0% entry 45%; }
-      .reveal-left { animation: slide-left linear both; animation-timeline: view(block); animation-range: entry 0% entry 50%; }
-      .reveal-right { animation: slide-right linear both; animation-timeline: view(block); animation-range: entry 0% entry 50%; }
-      .reveal-rotate { animation: rotate-in var(--spring) both; animation-timeline: view(block); animation-range: entry 0% entry 50%; }
-      .reveal-flip { animation: flip-in 0.8s var(--spring) both; animation-timeline: view(block); animation-range: entry 0% entry 45%; }
-      .reveal-skew { animation: skew-in linear both; animation-timeline: view(block); animation-range: entry 0% entry 50%; }
-      .reveal-clip { animation: clip-reveal linear both; animation-timeline: view(block); animation-range: entry 0% entry 50%; }
+      .reveal-up { animation: slide-up linear both; animation-timeline: view(block); animation-range: entry 0% entry 35%; }
+      .reveal-scale { animation: pop-in var(--spring) both; animation-timeline: view(block); animation-range: entry 0% entry 35%; }
+      .reveal-left { animation: slide-left linear both; animation-timeline: view(block); animation-range: entry 0% entry 35%; }
+      .reveal-right { animation: slide-right linear both; animation-timeline: view(block); animation-range: entry 0% entry 35%; }
+      .reveal-rotate { animation: rotate-in var(--spring) both; animation-timeline: view(block); animation-range: entry 0% entry 35%; }
+      .reveal-flip { animation: flip-in 0.8s var(--spring) both; animation-timeline: view(block); animation-range: entry 0% entry 35%; }
+      .reveal-skew { animation: skew-in linear both; animation-timeline: view(block); animation-range: entry 0% entry 35%; }
+      .reveal-clip { animation: clip-reveal linear both; animation-timeline: view(block); animation-range: entry 0% entry 35%; }
 
       @keyframes slide-up { from { opacity: 0; transform: translateY(80px); } to { opacity: 1; transform: none; } }
       @keyframes pop-in { from { opacity: 0; transform: scale(0.5); } to { opacity: 1; transform: none; } }
@@ -1966,7 +1966,7 @@
     .timeline-item {
       display: flex;
       align-items: flex-start;
-      margin-bottom: 3rem;
+      margin-bottom: 1.5rem;
       position: relative;
     }
     .timeline-item:nth-child(odd) { flex-direction: row; }
