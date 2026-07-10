@@ -2,17 +2,17 @@
        ROOT VARIABLES & RESET
        ═══════════════════════════════════════════════════════ */
     :root {
-      --bg: #D4F0FF;
-      --surface: #FFF0D4;
-      --text: #1E1E2F;
-      --text-muted: #5C5C72;
-      --accent: #FF6B35;
+      --bg: #FFFFFF;
+      --surface: #F2F2F2;
+      --text: #1A1A1A;
+      --text-muted: #555555;
+      --accent: #E53935;
       --accent-text: #FFFFFF;
-      --blue: #4A6CF7;
-      --pink: #FF6B9D;
-      --green: #00D68F;
-      --yellow: #FFD93D;
-      --shadow-color: #1E1E2F;
+      --blue: #2979FF;
+      --pink: #FF4081;
+      --green: #00E676;
+      --yellow: #FFEA00;
+      --shadow-color: #1A1A1A;
       --border: 3px solid var(--text);
       --shadow: 5px 5px 0 var(--shadow-color);
       --shadow-lg: 8px 8px 0 var(--shadow-color);
