@@ -709,71 +709,6 @@
     }
 
     /* ═══════════════════════════════════════════════════════
-       MARQUEE - DUAL ROW
-       ═══════════════════════════════════════════════════════ */
-    .marquee-section {
-      background: var(--text);
-      border-bottom: var(--border);
-      padding: 1.5rem 0;
-      overflow: hidden;
-      position: relative;
-    }
-
-    .marquee-section::before,
-    .marquee-section::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      width: 100px;
-      height: 100%;
-      z-index: 2;
-    }
-
-    .marquee-section::before {
-      left: 0;
-      background: linear-gradient(90deg, var(--text), transparent);
-    }
-
-    .marquee-section::after {
-      right: 0;
-      background: linear-gradient(-90deg, var(--text), transparent);
-    }
-
-    .marquee-row {
-      display: flex;
-      animation: marquee 25s linear infinite;
-      white-space: nowrap;
-      will-change: transform;
-    }
-
-    .marquee-row:nth-child(2) {
-      animation-direction: reverse;
-      animation-duration: 30s;
-    }
-
-    .marquee-item {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.875rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      color: var(--accent);
-      padding: 0 2rem;
-      display: flex;
-      align-items: center;
-      gap: 2rem;
-    }
-
-    .marquee-item::after {
-      content: '★';
-      font-size: 0.625rem;
-    }
-
-    @keyframes marquee {
-      from { transform: translateX(0); }
-      to { transform: translateX(-50%); }
-    }
-
-    /* ═══════════════════════════════════════════════════════
        SERVICES - BENTO GRID
        ═══════════════════════════════════════════════════════ */
     .services {
@@ -871,10 +806,8 @@
       box-shadow: none;
     }
 
-    .service-card:nth-child(1) { grid-column: span 2; background: var(--accent); color: var(--bg); }
-    .service-card:nth-child(2) { background: var(--blue); color: var(--bg); }
-    .service-card:nth-child(3) { background: var(--pink); color: var(--bg); }
-    .service-card:nth-child(4) { grid-column: span 2; background: var(--green); color: var(--bg); }
+    .service-card:nth-child(1) { grid-column: span 2; }
+    .service-card:nth-child(4) { grid-column: span 2; }
 
     .service-number {
       font-family: 'Space Mono', monospace;
@@ -991,7 +924,7 @@
       left: 0;
       width: 0;
       height: 100%;
-      background: var(--surface);
+      background: var(--bg);
       transition: width 0.4s var(--spring);
       z-index: -1;
     }
@@ -1001,7 +934,7 @@
     }
 
     .step:hover {
-      color: var(--text);
+      color: var(--accent);
       transform: translate(-4px, -4px);
       box-shadow: 8px 8px 0 var(--accent);
     }
@@ -1805,7 +1738,7 @@
     }
     .skill-bar-label {
       font-family: 'Space Mono', monospace;
-      font-size: 0.65rem;
+      font-size: 0.75rem;
       font-weight: 700;
       text-transform: uppercase;
       width: 70px;
@@ -1814,7 +1747,7 @@
     .skill-bar-track {
       flex: 1;
       height: 10px;
-      background: rgba(0,0,0,0.1);
+      background: rgba(255,255,255,0.1);
       border: 2px solid var(--text);
       position: relative;
       overflow: hidden;
@@ -1830,7 +1763,7 @@
     }
     .skill-bar-val {
       font-family: 'Space Mono', monospace;
-      font-size: 0.6rem;
+      font-size: 0.7rem;
       font-weight: 700;
       width: 30px;
       text-align: right;
@@ -2219,8 +2152,10 @@
     .hero { background: var(--orange) !important; color: var(--accent-text) !important; }
     .hero-stats { background: var(--surface) !important; color: var(--text) !important; }
     .service-card { background: var(--surface) !important; }
-    .marquee-section { background: var(--yellow) !important; }
-    .marquee-item { color: var(--accent-text) !important; }
+    .service-card:nth-child(1) { background: var(--accent) !important; color: var(--accent-text) !important; }
+    .service-card:nth-child(2) { background: var(--blue) !important; color: var(--text) !important; }
+    .service-card:nth-child(3) { background: var(--pink) !important; color: var(--accent-text) !important; }
+    .service-card:nth-child(4) { background: var(--green) !important; color: var(--accent-text) !important; }
     .work-card.large { background: var(--red) !important; color: var(--text) !important; }
     .approach { background: var(--green) !important; color: var(--accent-text) !important; }
     .insights { background: var(--pink) !important; color: var(--accent-text) !important; }
@@ -2395,34 +2330,6 @@
         </aside>
       </div>
     </section>
-
-    <!-- MARQUEE -->
-    <div class="marquee-section">
-      <div class="marquee-row">
-        <span class="marquee-item">React</span>
-        <span class="marquee-item">TypeScript</span>
-        <span class="marquee-item">Next.js</span>
-        <span class="marquee-item">Node.js</span>
-        <span class="marquee-item">Python</span>
-        <span class="marquee-item">React</span>
-        <span class="marquee-item">TypeScript</span>
-        <span class="marquee-item">Next.js</span>
-        <span class="marquee-item">Node.js</span>
-        <span class="marquee-item">Python</span>
-      </div>
-      <div class="marquee-row">
-        <span class="marquee-item">Tailwind</span>
-        <span class="marquee-item">PostgreSQL</span>
-        <span class="marquee-item">GraphQL</span>
-        <span class="marquee-item">Docker</span>
-        <span class="marquee-item">Figma</span>
-        <span class="marquee-item">Tailwind</span>
-        <span class="marquee-item">PostgreSQL</span>
-        <span class="marquee-item">GraphQL</span>
-        <span class="marquee-item">Docker</span>
-        <span class="marquee-item">Figma</span>
-      </div>
-    </div>
 
     <!-- SKILLS -->
     <section id="skills" class="services">
@@ -2968,12 +2875,6 @@
     });
 
     // ═══════════════════════════════════════════
-    // MARQUEE PAUSE ON HOVER
-    // ═══════════════════════════════════════════
-    document.querySelectorAll('.marquee-row').forEach(marquee => {
-      marquee.addEventListener('mouseenter', () => marquee.style.animationPlayState = 'paused');
-      marquee.addEventListener('mouseleave', () => marquee.style.animationPlayState = 'running');
-    });
 
     // ═══════════════════════════════════════════
     // STATS COUNTER ANIMATION
