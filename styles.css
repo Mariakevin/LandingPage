@@ -640,6 +640,7 @@
 
     .hero-stats {
       background: var(--surface);
+      color: var(--text);
       border: var(--border);
       box-shadow: var(--shadow-xl);
       padding: 2rem;
