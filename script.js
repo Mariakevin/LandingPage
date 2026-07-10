@@ -148,9 +148,12 @@
       groups.forEach(g => { if (!validateField(g)) valid = false; });
       if (!valid) { showToast('Please fix the errors above', 'error'); return; }
 
+      const endpoint = form.getAttribute('data-endpoint') || '';
+      const data = { name: formName.value, email: formEmail.value, focus: document.getElementById('form-focus').value, context: formContext.value };
       formSubmit.innerHTML = '<span class="spinner"></span>Sending...';
       formSubmit.classList.add('loading');
-      setTimeout(() => {
+
+      function done() {
         form.reset();
         ['draft_name', 'draft_email', 'draft_context'].forEach(k => localStorage.removeItem(k));
         charCount.textContent = '0';
@@ -160,7 +163,20 @@
         formSubmit.classList.remove('loading');
         groups.forEach(g => g.classList.remove('error'));
         showToast('Message sent successfully!', 'success');
-      }, 1500);
+      }
+
+      if (endpoint) {
+        fetch(endpoint, {
+          method: 'POST', body: JSON.stringify(data),
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }
+        }).then(r => { if (r.ok) done(); else throw Error(); }).catch(() => {
+          formSubmit.innerHTML = originalText;
+          formSubmit.classList.remove('loading');
+          showToast('Could not send. Try alex@buildwithchen.com', 'error');
+        });
+      } else {
+        setTimeout(done, 1200);
+      }
     });
 
     // ═══════════════════════════════════════════
@@ -326,6 +342,43 @@
           setTimeout(() => kbdHelpVisible = false, 4000);
         }
       }
+    });
+
+    // ═══════════════════════════════════════════
+    // CV DOWNLOAD
+    // ═══════════════════════════════════════════
+    document.getElementById('resume-download')?.addEventListener('click', () => {
+      const blob = new Blob([
+`ALEX CHEN
+Full-Stack Developer & Designer
+alex@buildwithchen.com · github.com/alexchen · linkedin.com/in/alexchen
+
+EXPERIENCE
+Senior Full-Stack Engineer · Stripe (Remote) · 2024-Present
+  Payment infrastructure APIs, React Server Components migration.
+Frontend Lead · Vercel (San Francisco, CA) · 2022-2024
+  Dashboard architecture, design system for 100k+ developers.
+Full-Stack Developer · Rainbow Studios (New York, NY) · 2020-2022
+  12+ products shipped for fintech and health startups.
+Junior Developer · Digital Agency (Austin, TX) · 2018-2020
+  React, WordPress, CI/CD pipeline development.
+
+EDUCATION
+M.Sc. Computer Science · Stanford University · 2020-2022
+B.Sc. Software Engineering · UC Berkeley · 2016-2020
+
+SKILLS
+React · TypeScript · Next.js · Node.js · Python · Go
+PostgreSQL · Docker · AWS · Terraform · Design Systems
+
+Open source maintainer. Available for freelance and full-time.`
+      ], { type: 'text/plain' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url; a.download = 'Alex_Chen_Resume.txt';
+      document.body.appendChild(a); a.click();
+      document.body.removeChild(a); URL.revokeObjectURL(url);
+      showToast('Resume downloaded!', 'success');
     });
 
     // ═══════════════════════════════════════════

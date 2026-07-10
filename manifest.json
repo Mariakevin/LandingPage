@@ -1,0 +1,17 @@
+{
+  "name": "Alex Chen — Full-Stack Developer & Designer",
+  "short_name": "Alex Chen",
+  "start_url": "/LandingPage/",
+  "display": "standalone",
+  "background_color": "#1A1A2E",
+  "theme_color": "#1A1A2E",
+  "orientation": "portrait-primary",
+  "description": "Full-stack developer building performant web apps.",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'%3E%3Crect width='192' height='192' rx='32' fill='%23FF6B35'/%3E%3Ctext x='96' y='128' font-size='96' font-family='monospace' font-weight='bold' text-anchor='middle' fill='%231A1A2E'%3EAC%3C/text%3E%3C/svg%3E",
+      "sizes": "192x192",
+      "type": "image/svg+xml"
+    }
+  ]
+}
