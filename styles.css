@@ -2,17 +2,17 @@
        ROOT VARIABLES & RESET
        ═══════════════════════════════════════════════════════ */
     :root {
-      --bg: #FFE0E8;
-      --surface: #E0E8FF;
-      --text: #3D3D56;
-      --text-muted: #8888A0;
+      --bg: #D4F0FF;
+      --surface: #FFF0D4;
+      --text: #1E1E2F;
+      --text-muted: #5C5C72;
       --accent: #FF6B35;
       --accent-text: #FFFFFF;
       --blue: #4A6CF7;
-      --pink: #FF8FA3;
-      --green: #06D6A0;
-      --yellow: #FFD166;
-      --shadow-color: #3D3D56;
+      --pink: #FF6B9D;
+      --green: #00D68F;
+      --yellow: #FFD93D;
+      --shadow-color: #1E1E2F;
       --border: 3px solid var(--text);
       --shadow: 5px 5px 0 var(--shadow-color);
       --shadow-lg: 8px 8px 0 var(--shadow-color);
@@ -640,7 +640,7 @@
 
     .hero-stats {
       background: var(--surface);
-      color: var(--text);
+      color: var(--text) !important;
       border: var(--border);
       box-shadow: var(--shadow-xl);
       padding: 2rem;
@@ -658,10 +658,13 @@
       z-index: -1;
     }
 
+    .hero-stats * {
+      color: var(--text) !important;
+    }
+
     .hero-stats h3 {
       font-family: 'Space Mono', monospace;
       font-size: 0.75rem;
-      color: var(--text);
       text-transform: uppercase;
       letter-spacing: 0.1em;
       margin-bottom: 1.5rem;
@@ -678,13 +681,12 @@
       font-size: 3.5rem;
       font-weight: 700;
       line-height: 1;
-      color: var(--blue);
+      color: var(--blue) !important;
     }
 
     .stat-label {
       font-family: 'Space Mono', monospace;
       font-size: 0.75rem;
-      color: var(--text);
       text-transform: uppercase;
       letter-spacing: 0.05em;
       margin-top: 0.25rem;

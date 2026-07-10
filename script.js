@@ -470,6 +470,6 @@ Open source maintainer. Available for freelance and full-time.`
     // ═══════════════════════════════════════════
     // CONSOLE EASTER EGG
     // ═══════════════════════════════════════════
-    console.log('%c Alex Chen ', 'background: #FFF0F5; color: #FF6B35; font-size: 2rem; font-weight: bold; padding: 10px 20px; border: 3px solid #3D3D56;');
+    console.log('%c Alex Chen ', 'background: #D4F0FF; color: #FF6B35; font-size: 2rem; font-weight: bold; padding: 10px 20px; border: 3px solid #1E1E2F;');
     console.log('%c Full-stack developer building bold experiences ', 'background: #4A6CF7; color: white; font-size: 0.875rem; padding: 5px 10px;');
-    console.log('%c Press ? for keyboard shortcuts ', 'background: #F0F4FF; color: #3D3D56; font-size: 0.8rem; padding: 5px 10px; border: 3px solid #3D3D56;');
+    console.log('%c Press ? for keyboard shortcuts ', 'background: #FFF0D4; color: #1E1E2F; font-size: 0.8rem; padding: 5px 10px; border: 3px solid #1E1E2F;');
