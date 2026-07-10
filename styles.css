@@ -2,17 +2,18 @@
        ROOT VARIABLES & RESET
        ═══════════════════════════════════════════════════════ */
     :root {
-      --bg: #1A1A2E;
-      --surface: #252542;
-      --text: #E8E0D0;
-      --text-muted: #9A94A8;
+      --bg: #0D0D1A;
+      --surface: #242440;
+      --text: #F0E8DA;
+      --text-muted: #B8AEC8;
       --accent: #FF6B35;
-      --accent-text: #1A1A2E;
-      --blue: #4361EE;
+      --accent-text: #0D0D1A;
+      --blue: #4A6CF7;
+      --shadow-color: #080812;
       --border: 3px solid var(--text);
-      --shadow: 5px 5px 0 var(--bg);
-      --shadow-lg: 8px 8px 0 var(--bg);
-      --shadow-xl: 12px 12px 0 var(--bg);
+      --shadow: 5px 5px 0 var(--shadow-color);
+      --shadow-lg: 8px 8px 0 var(--shadow-color);
+      --shadow-xl: 12px 12px 0 var(--shadow-color);
       --spring: cubic-bezier(0.34, 1.56, 0.64, 1);
       --smooth: cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
@@ -881,7 +882,7 @@
     }
 
     .step {
-      border: 3px solid var(--bg);
+      border: var(--border);
       padding: 1.5rem 2rem;
       background: transparent;
       transition: transform 0.3s var(--spring), box-shadow 0.3s var(--spring);
