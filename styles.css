@@ -661,6 +661,7 @@
     .hero-stats h3 {
       font-family: 'Space Mono', monospace;
       font-size: 0.75rem;
+      color: var(--text);
       text-transform: uppercase;
       letter-spacing: 0.1em;
       margin-bottom: 1.5rem;
@@ -683,6 +684,7 @@
     .stat-label {
       font-family: 'Space Mono', monospace;
       font-size: 0.75rem;
+      color: var(--text);
       text-transform: uppercase;
       letter-spacing: 0.05em;
       margin-top: 0.25rem;
