@@ -442,10 +442,18 @@
        ═══════════════════════════════════════════════════════ */
     .hero {
       padding: 8rem 2rem 6rem;
-      background: var(--accent);
+      background: linear-gradient(135deg, var(--orange), #ff8a50, var(--red));
+      background-size: 300% 300%;
+      animation: gradient-drift 12s ease infinite;
       border-bottom: var(--border);
       position: relative;
       overflow: hidden;
+    }
+
+    @keyframes gradient-drift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
     }
 
     .hero-bg {
@@ -458,41 +466,68 @@
     .hero-shape {
       position: absolute;
       border: 3px solid var(--text);
-      opacity: 0.1;
+      opacity: 0.12;
       will-change: transform;
     }
 
     .hero-shape:nth-child(1) {
-      width: 300px;
-      height: 300px;
-      top: -50px;
-      right: 10%;
-      animation: float 6s ease-in-out infinite;
+      width: 320px;
+      height: 320px;
+      top: -60px;
+      right: 8%;
+      animation: float-hero 7s ease-in-out infinite;
     }
 
     .hero-shape:nth-child(2) {
-      width: 150px;
-      height: 150px;
-      bottom: 10%;
-      left: 5%;
-      animation: float 4s ease-in-out infinite reverse;
+      width: 180px;
+      height: 180px;
+      bottom: 8%;
+      left: 4%;
+      animation: float-hero 5s ease-in-out infinite reverse;
       border-radius: 50%;
     }
 
     .hero-shape:nth-child(3) {
-      width: 80px;
-      height: 80px;
-      top: 30%;
-      left: 30%;
-      animation: spin 20s linear infinite;
+      width: 100px;
+      height: 100px;
+      top: 25%;
+      left: 35%;
+      animation: spin-hero 25s linear infinite;
+      border-radius: 50%;
+      border-style: dashed;
     }
 
-    @keyframes float {
+    .hero-shape:nth-child(4) {
+      width: 60px;
+      height: 60px;
+      bottom: 30%;
+      right: 15%;
+      animation: float-hero 6s ease-in-out infinite;
+      transform: rotate(45deg);
+      background: var(--text);
+      opacity: 0.06;
+      border: none;
+    }
+
+    .hero-shape:nth-child(5) {
+      width: 70px;
+      height: 70px;
+      top: 15%;
+      right: 25%;
+      animation: float-hero 8s ease-in-out infinite reverse;
+      background: var(--text);
+      opacity: 0.05;
+      border: none;
+      border-radius: 0;
+      clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+    }
+
+    @keyframes float-hero {
       0%, 100% { transform: translateY(0) rotate(0deg); }
-      50% { transform: translateY(-30px) rotate(5deg); }
+      50% { transform: translateY(-35px) rotate(4deg); }
     }
 
-    @keyframes spin {
+    @keyframes spin-hero {
       to { transform: rotate(360deg); }
     }
 
@@ -645,6 +680,8 @@
       transition: transform 0.2s var(--smooth), background 0.2s;
       box-shadow: var(--shadow);
       text-decoration: none;
+      position: relative;
+      overflow: hidden;
     }
 
     .btn-secondary:hover {
@@ -1526,6 +1563,9 @@
       25% { transform: rotate(-5deg); }
       75% { transform: rotate(5deg); }
     }
+    @keyframes ripple-out {
+      to { transform: scale(6); opacity: 0; }
+    }
 
     @keyframes rainbow {
       0% { filter: hue-rotate(0deg); }
@@ -1974,6 +2014,98 @@
     }
 
     /* ═══════════════════════════════════════════════════════
+       EXPERIENCE TIMELINE
+       ═══════════════════════════════════════════════════════ */
+    .timeline {
+      padding: 6rem 2rem;
+      border-bottom: var(--border);
+      background: var(--surface);
+    }
+    .timeline-grid {
+      max-width: 1000px;
+      margin: 0 auto;
+      position: relative;
+    }
+    .timeline-grid::before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 0;
+      bottom: 0;
+      width: 3px;
+      background: var(--text);
+      transform: translateX(-50%);
+    }
+    .timeline-item {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 3rem;
+      position: relative;
+    }
+    .timeline-item:nth-child(odd) { flex-direction: row; }
+    .timeline-item:nth-child(even) { flex-direction: row-reverse; }
+    .timeline-dot {
+      position: absolute;
+      left: 50%;
+      top: 0;
+      width: 20px;
+      height: 20px;
+      background: var(--accent);
+      border: 3px solid var(--text);
+      transform: translateX(-50%) rotate(45deg);
+      z-index: 2;
+    }
+    .timeline-content {
+      width: calc(50% - 3rem);
+      padding: 1.5rem;
+      border: var(--border);
+      box-shadow: var(--shadow);
+      position: relative;
+      transition: transform 0.3s var(--spring), box-shadow 0.3s;
+    }
+    .timeline-item:nth-child(odd) .timeline-content { margin-right: auto; }
+    .timeline-item:nth-child(even) .timeline-content { margin-left: auto; }
+    .timeline-content:hover {
+      transform: translate(-4px, -4px);
+      box-shadow: var(--shadow-lg);
+    }
+    .timeline-year {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 0.25rem;
+    }
+    .timeline-role {
+      font-size: 1.1rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-bottom: 0.15rem;
+    }
+    .timeline-company {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.75rem;
+      opacity: 0.7;
+      margin-bottom: 0.75rem;
+    }
+    .timeline-desc {
+      font-size: 0.85rem;
+      opacity: 0.8;
+    }
+
+    @media (max-width: 768px) {
+      .timeline-grid::before { left: 20px; }
+      .timeline-item,
+      .timeline-item:nth-child(even) { flex-direction: row; }
+      .timeline-dot { left: 20px; }
+      .timeline-content {
+        width: calc(100% - 3rem);
+        margin-left: auto !important;
+        margin-right: 0 !important;
+      }
+    }
+
+    /* ═══════════════════════════════════════════════════════
        MOBILE NAV OVERLAY
        ═══════════════════════════════════════════════════════ */
     .nav-overlay {
@@ -2141,6 +2273,8 @@
       cursor: none;
       transition: all 0.2s var(--smooth);
       box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
     }
     .filter-btn:hover { background: var(--text); color: var(--bg); transform: translate(-2px, -2px); box-shadow: var(--shadow-lg); }
     .filter-btn.active { background: var(--accent); color: var(--bg); border-color: var(--accent); }
@@ -2158,6 +2292,7 @@
     .service-card:nth-child(4) { background: var(--green) !important; color: var(--accent-text) !important; }
     .work-card.large { background: var(--red) !important; color: var(--text) !important; }
     .approach { background: var(--green) !important; color: var(--accent-text) !important; }
+    .timeline { background: var(--surface) !important; color: var(--text) !important; }
     .insights { background: var(--pink) !important; color: var(--accent-text) !important; }
     .insight-card { background: var(--surface) !important; }
     .dialog-content { background: var(--surface) !important; }
@@ -2432,10 +2567,58 @@
       </div>
     </section>
 
+    <!-- EXPERIENCE -->
+    <section class="timeline">
+      <div class="section-header">
+        <div class="section-number reveal-scale" style="background: var(--blue);">03</div>
+        <div class="reveal-up">
+          <h2>Where I've been, what I've built.</h2>
+        </div>
+      </div>
+      <div class="timeline-grid">
+        <div class="timeline-item reveal-left">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content" style="background: var(--bg);">
+            <p class="timeline-year">2024 — Present</p>
+            <p class="timeline-role">Senior Full-Stack Engineer</p>
+            <p class="timeline-company">Stripe — Remote</p>
+            <p class="timeline-desc">Building payment infrastructure APIs and developer tooling. Leading migration of internal dashboard to React Server Components.</p>
+          </div>
+        </div>
+        <div class="timeline-item reveal-right">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content" style="background: var(--bg);">
+            <p class="timeline-year">2022 — 2024</p>
+            <p class="timeline-role">Frontend Lead</p>
+            <p class="timeline-company">Vercel — San Francisco, CA</p>
+            <p class="timeline-desc">Led frontend architecture for the Vercel dashboard. Built design system components used by 100k+ developers.</p>
+          </div>
+        </div>
+        <div class="timeline-item reveal-left">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content" style="background: var(--bg);">
+            <p class="timeline-year">2020 — 2022</p>
+            <p class="timeline-role">Full-Stack Developer</p>
+            <p class="timeline-company">Rainbow Studios — New York, NY</p>
+            <p class="timeline-desc">Built customer-facing web apps for fintech and health startups. Shipped 12+ products from concept to production.</p>
+          </div>
+        </div>
+        <div class="timeline-item reveal-right">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content" style="background: var(--bg);">
+            <p class="timeline-year">2018 — 2020</p>
+            <p class="timeline-role">Junior Developer</p>
+            <p class="timeline-company">Digital Agency — Austin, TX</p>
+            <p class="timeline-desc">Developed responsive web applications for agency clients. Gained deep experience in React, WordPress, and CI/CD pipelines.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- PROJECTS -->
     <section id="projects" class="work">
       <div class="section-header">
-        <div class="section-number reveal-scale" style="background: var(--green);">03</div>
+        <div class="section-number reveal-scale" style="background: var(--green);">04</div>
         <div class="reveal-up">
           <h2>Projects that speak for themselves.</h2>
         </div>
@@ -2501,7 +2684,7 @@
     <!-- TESTIMONIALS -->
     <section id="testimonials" class="insights">
       <div class="section-header">
-        <div class="section-number reveal-scale" style="background: var(--pink);">04</div>
+        <div class="section-number reveal-scale" style="background: var(--pink);">05</div>
         <div class="reveal-up">
           <h2>What people say about working with me.</h2>
         </div>
@@ -2995,6 +3178,59 @@
         showToast('Konami code activated!', 'success');
         setTimeout(() => document.body.style.animation = '', 2000);
       }
+    });
+
+    // ═══════════════════════════════════════════
+    // 3D TILT ON CARDS
+    // ═══════════════════════════════════════════
+    document.querySelectorAll('.work-card, .insight-card, .service-card, .timeline-content').forEach(card => {
+      card.addEventListener('mousemove', e => {
+        const r = card.getBoundingClientRect();
+        const x = (e.clientX - r.left) / r.width - 0.5;
+        const y = (e.clientY - r.top) / r.height - 0.5;
+        card.style.transform = `perspective(800px) rotateY(${x * 12}deg) rotateX(${-y * 12}deg) translateZ(10px)`;
+        card.style.transition = 'transform 0.1s ease';
+      });
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = '';
+        card.style.transition = 'transform 0.5s ease';
+      });
+    });
+
+    // ═══════════════════════════════════════════
+    // MAGNETIC BUTTONS
+    // ═══════════════════════════════════════════
+    document.querySelectorAll('.btn-primary, .btn-secondary, .nav-cta, .cta-btn').forEach(btn => {
+      btn.addEventListener('mousemove', e => {
+        const r = btn.getBoundingClientRect();
+        const x = (e.clientX - r.left - r.width / 2) * 0.25;
+        const y = (e.clientY - r.top - r.height / 2) * 0.25;
+        btn.style.transform = `translate(${x}px, ${y}px)`;
+      });
+      btn.addEventListener('mouseleave', () => {
+        btn.style.transform = '';
+        btn.style.transition = 'transform 0.4s ease';
+      });
+    });
+
+    // ═══════════════════════════════════════════
+    // RIPPLE ON CLICK
+    // ═══════════════════════════════════════════
+    document.querySelectorAll('.btn-primary, .btn-secondary, .nav-cta, .cta-btn, .filter-btn').forEach(btn => {
+      btn.addEventListener('click', function(e) {
+        const ripple = document.createElement('span');
+        ripple.style.cssText = `
+          position: absolute; border-radius: 50%;
+          background: rgba(255,255,255,0.4);
+          width: 20px; height: 20px;
+          left: ${e.clientX - this.getBoundingClientRect().left - 10}px;
+          top: ${e.clientY - this.getBoundingClientRect().top - 10}px;
+          transform: scale(0); pointer-events: none;
+          animation: ripple-out 0.6s ease-out forwards;
+        `;
+        this.appendChild(ripple);
+        setTimeout(() => ripple.remove(), 600);
+      });
     });
 
     // ═══════════════════════════════════════════
