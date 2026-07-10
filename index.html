@@ -17,21 +17,22 @@
        ROOT VARIABLES & RESET
        ═══════════════════════════════════════════════════════ */
     :root {
-      --bg: #1C1C1C;
-      --surface: #2A2A2A;
-      --text: #F0F0F0;
-      --text-muted: #9CA3AF;
-      --accent: #EAB308;
-      --accent-text: #1C1C1C;
-      --blue: #60A5FA;
-      --red: #EF4444;
-      --green: #22C55E;
-      --pink: #F472B6;
-      --orange: #FB923C;
+      --bg: #1A0A2E;
+      --surface: #2D1B4E;
+      --text: #F5E6D3;
+      --text-muted: #B8A9C9;
+      --accent: #FF6B35;
+      --accent-text: #1A0A2E;
+      --blue: #4361EE;
+      --red: #EF476F;
+      --green: #06D6A0;
+      --pink: #FF8FA3;
+      --orange: #FF6B35;
+      --yellow: #FFD700;
       --border: 3px solid var(--text);
-      --shadow: 5px 5px 0 var(--accent);
-      --shadow-lg: 8px 8px 0 var(--accent);
-      --shadow-xl: 12px 12px 0 var(--accent);
+      --shadow: 5px 5px 0 var(--bg);
+      --shadow-lg: 8px 8px 0 var(--bg);
+      --shadow-xl: 12px 12px 0 var(--bg);
       --spring: cubic-bezier(0.34, 1.56, 0.64, 1);
       --smooth: cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
@@ -647,8 +648,8 @@
     }
 
     .btn-secondary:hover {
-      background: var(--accent);
-      color: var(--bg);
+      background: var(--blue);
+      color: var(--text);
       transform: translate(-2px, -2px);
       box-shadow: var(--shadow-lg);
     }
@@ -1560,6 +1561,7 @@
 
     .form-submit:hover {
       background: var(--blue);
+      color: var(--text);
       transform: translate(-2px, -2px);
       box-shadow: var(--shadow-lg);
     }
@@ -2213,21 +2215,23 @@
     /* ═══════════════════════════════════════════════════════
        DARK MODE OVERRIDES
        ═══════════════════════════════════════════════════════ */
-    .hero { background: var(--surface) !important; }
-    .hero-stats { background: var(--surface) !important; }
+    header { background: var(--surface) !important; border-bottom-color: var(--text) !important; }
+    .hero { background: var(--orange) !important; color: var(--accent-text) !important; }
+    .hero-stats { background: var(--surface) !important; color: var(--text) !important; }
     .service-card { background: var(--surface) !important; }
-    .work-card.large { background: #166534 !important; }
-    .step { border-color: var(--text) !important; }
+    .marquee-section { background: var(--yellow) !important; }
+    .marquee-item { color: var(--accent-text) !important; }
+    .work-card.large { background: var(--red) !important; color: var(--text) !important; }
+    .approach { background: var(--green) !important; color: var(--accent-text) !important; }
+    .insights { background: var(--pink) !important; color: var(--accent-text) !important; }
     .insight-card { background: var(--surface) !important; }
     .dialog-content { background: var(--surface) !important; }
     .form-group input,
     .form-group textarea,
     .form-group select { background: var(--surface) !important; color: var(--text) !important; }
-    .cta { background: var(--blue) !important; color: var(--bg) !important; }
-    header { background: var(--surface) !important; border-bottom-color: var(--text) !important; }
-    .approach { background: var(--surface) !important; color: var(--text) !important; }
+    .cta { background: var(--blue) !important; color: var(--text) !important; }
     footer { background: var(--bg) !important; color: var(--text) !important; }
-    .marquee-section { background: var(--text) !important; color: var(--accent) !important; }
+    .step { border-color: var(--text) !important; }
 
     /* ═══════════════════════════════════════════════════════
        RESPONSIVE
@@ -2484,7 +2488,7 @@
     <section id="about" class="approach">
       <div class="approach-content">
         <div class="reveal-left">
-          <p class="hero-badge" style="background: var(--accent); color: var(--bg);">02 / About me</p>
+          <p class="hero-badge" style="background: var(--yellow); color: var(--accent-text);">02 / About me</p>
           <h2>Code is craft. Products are partnerships.</h2>
           <p>I started coding at 14, building Minecraft plugins. That curiosity turned into a career across startups, agencies, and product teams. I believe great software comes from understanding the problem first — the tech stack is just the medium.</p>
           <p style="margin-top: 1.5rem;">When I'm not shipping code, you'll find me contributing to open source, writing about frontend architecture, or experimenting with generative art.</p>
