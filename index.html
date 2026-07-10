@@ -35,22 +35,6 @@
       --smooth: cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
 
-    .hero { background: #1a1a1a; }
-    .hero-stats { background: #1a1a1a; }
-    .service-card { background: #1a1a1a; }
-    .work-card.large { background: #166534; }
-    .step { border-color: var(--black); }
-    .insight-card { background: #1a1a1a; }
-    .dialog-content { background: #1a1a1a; }
-    .form-group input,
-    .form-group textarea,
-    .form-group select { background: #1a1a1a; color: var(--black); }
-    .cta { background: #1e40af; }
-    header { background: #1a1a1a; border-bottom-color: #333; }
-    .approach { background: #0a0a0a; }
-    footer { background: #0a0a0a; }
-    .marquee-section { background: #0a0a0a; }
-
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; }
     body {
@@ -2223,6 +2207,25 @@
     }
     .filter-btn:hover { background: var(--black); color: var(--white); transform: translate(-2px, -2px); box-shadow: var(--shadow-lg); }
     .filter-btn.active { background: var(--yellow); color: var(--white); border-color: var(--yellow); }
+
+    /* ═══════════════════════════════════════════════════════
+       DARK MODE OVERRIDES
+       ═══════════════════════════════════════════════════════ */
+    .hero { background: #1a1a1a !important; }
+    .hero-stats { background: #1a1a1a !important; }
+    .service-card { background: #1a1a1a !important; }
+    .work-card.large { background: #166534 !important; }
+    .step { border-color: var(--black) !important; }
+    .insight-card { background: #1a1a1a !important; }
+    .dialog-content { background: #1a1a1a !important; }
+    .form-group input,
+    .form-group textarea,
+    .form-group select { background: #1a1a1a !important; color: var(--black) !important; }
+    .cta { background: #1e40af !important; }
+    header { background: #1a1a1a !important; border-bottom-color: #333 !important; }
+    .approach { background: #0a0a0a !important; }
+    footer { background: #0a0a0a !important; }
+    .marquee-section { background: #0a0a0a !important; }
 
     /* ═══════════════════════════════════════════════════════
        RESPONSIVE
