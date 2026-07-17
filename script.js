@@ -1,4 +1,34 @@
 // ═══════════════════════════════════════════
+    // DARK MODE TOGGLE
+    // ═══════════════════════════════════════════
+    const themeToggle = document.getElementById('theme-toggle');
+    const htmlEl = document.documentElement;
+
+    function getPreferredTheme() {
+      const stored = localStorage.getItem('theme');
+      if (stored) return stored;
+      return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    }
+
+    function setTheme(theme) {
+      htmlEl.setAttribute('data-theme', theme);
+      localStorage.setItem('theme', theme);
+    }
+
+    setTheme(getPreferredTheme());
+
+    themeToggle.addEventListener('click', () => {
+      const current = htmlEl.getAttribute('data-theme');
+      setTheme(current === 'dark' ? 'light' : 'dark');
+    });
+
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+      if (!localStorage.getItem('theme')) {
+        setTheme(e.matches ? 'dark' : 'light');
+      }
+    });
+
+    // ═══════════════════════════════════════════
     // CUSTOM CURSOR (fine pointer only)
     // ═══════════════════════════════════════════
     if (window.matchMedia('(pointer: fine)').matches) {
@@ -24,7 +54,7 @@
     document.addEventListener('mousedown', () => cursorOuter.classList.add('clicking'));
     document.addEventListener('mouseup', () => cursorOuter.classList.remove('clicking'));
 
-    document.querySelectorAll('a, button, .service-card, .work-card, .insight-card, .step').forEach(el => {
+    document.querySelectorAll('a, button, .service-card, .work-card, .insight-card, .step, .blog-card').forEach(el => {
       el.addEventListener('mouseenter', () => cursorOuter.classList.add('hovering'));
       el.addEventListener('mouseleave', () => cursorOuter.classList.remove('hovering'));
     });
@@ -75,12 +105,14 @@
       const focusable = dialog.querySelectorAll('button, input, textarea, select, [tabindex]:not([tabindex="-1"])');
       if (!focusable.length) return;
       const first = focusable[0], last = focusable[focusable.length - 1];
-      dialog.addEventListener('keydown', function handler(e) {
+      if (dialog._focusTrapHandler) dialog.removeEventListener('keydown', dialog._focusTrapHandler);
+      dialog._focusTrapHandler = function handler(e) {
         if (e.key === 'Tab') {
           if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
           else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
         }
-      });
+      };
+      dialog.addEventListener('keydown', dialog._focusTrapHandler);
     }
 
     document.querySelectorAll('[data-open-consultation]').forEach(btn => {
@@ -92,6 +124,8 @@
         document.getElementById('form-context').value = localStorage.getItem('draft_context') || '';
         consultationDialog.showModal();
         trapFocus(consultationDialog);
+        const firstFocusable = consultationDialog.querySelector('button, input, textarea, select, [tabindex]:not([tabindex="-1"])');
+        if (firstFocusable) firstFocusable.focus();
       });
     });
 
@@ -195,6 +229,30 @@
     });
 
     // ═══════════════════════════════════════════
+    // SKELETON LOADING
+    // ═══════════════════════════════════════════
+    function hideSkeletons() {
+      const heroSkeleton = document.getElementById('hero-skeleton');
+      const heroContent = document.getElementById('hero-content');
+      if (heroSkeleton) heroSkeleton.classList.add('hidden');
+      if (heroContent) heroContent.classList.add('visible');
+
+      document.querySelectorAll('.work-card-skeleton').forEach(skeleton => {
+        skeleton.classList.add('hidden');
+        const content = skeleton.nextElementSibling;
+        if (content) content.classList.add('visible');
+      });
+    }
+
+    // Hide skeletons after a short delay to simulate loading
+    setTimeout(hideSkeletons, 800);
+
+    // Also hide on DOMContentLoaded as a fallback
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', () => setTimeout(hideSkeletons, 400));
+    }
+
+    // ═══════════════════════════════════════════
     // SCROLL SPY + SMOOTH SCROLL (NO TOAST)
     // ═══════════════════════════════════════════
     const sections = document.querySelectorAll('section[id]');
@@ -204,7 +262,17 @@
         if (this.getAttribute('href') === '#') return;
         e.preventDefault();
         const target = document.querySelector(this.getAttribute('href'));
-        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        if (target) {
+          if (!document.startViewTransition) {
+            document.body.style.opacity = '0';
+            setTimeout(() => {
+              target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+              document.body.style.opacity = '1';
+            }, 150);
+          } else {
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        }
       });
     });
     let spyTicking = false;
@@ -215,7 +283,11 @@
           let current = '';
           sections.forEach(s => { if (s.offsetTop <= fromTop) current = s.id; });
           navLinks.forEach(link => {
-            link.classList.toggle('active', link.getAttribute('href') === '#' + current);
+            const isActive = link.getAttribute('href') === '#' + current;
+            link.classList.toggle('active', isActive);
+            if (link.classList.contains('nav-link')) {
+              link.setAttribute('aria-current', isActive ? 'page' : 'false');
+            }
           });
           spyTicking = false;
         });
@@ -224,18 +296,54 @@
     }, { passive: true });
 
     // ═══════════════════════════════════════════
-    // MALEOVER MOBILE NAV
+    // MOBILE NAV
     // ═══════════════════════════════════════════
     const navOverlay = document.getElementById('nav-overlay');
     const menuToggle = document.getElementById('menu-toggle');
     const navOverlayClose = document.getElementById('nav-overlay-close');
-    menuToggle.addEventListener('click', () => navOverlay.classList.add('open'));
-    navOverlayClose.addEventListener('click', () => navOverlay.classList.remove('open'));
-    navOverlay.querySelectorAll('[data-nav], [data-open-consultation]').forEach(el => {
-      el.addEventListener('click', () => navOverlay.classList.remove('open'));
+    let lastNavTrigger = null;
+
+    function trapNavFocus() {
+      const focusable = navOverlay.querySelectorAll('button, a[href], [tabindex]:not([tabindex="-1"])');
+      if (!focusable.length) return;
+      const first = focusable[0], last = focusable[focusable.length - 1];
+      if (navOverlay._focusTrapHandler) navOverlay.removeEventListener('keydown', navOverlay._focusTrapHandler);
+      navOverlay._focusTrapHandler = function handler(e) {
+        if (e.key === 'Tab') {
+          if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+          else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+        }
+      };
+      navOverlay.addEventListener('keydown', navOverlay._focusTrapHandler);
+    }
+
+    menuToggle.addEventListener('click', () => {
+      lastNavTrigger = document.activeElement;
+      navOverlay.classList.add('open');
+      navOverlayClose.focus();
+      trapNavFocus();
+      document.body.style.overflow = 'hidden';
+      const mainContent = document.querySelector('main');
+      if (mainContent) mainContent.setAttribute('inert', '');
     });
 
-    // ═══════════════════════════════════════════
+    navOverlayClose.addEventListener('click', () => {
+      navOverlay.classList.remove('open');
+      document.body.style.overflow = '';
+      const mainContent = document.querySelector('main');
+      if (mainContent) mainContent.removeAttribute('inert');
+      if (lastNavTrigger) lastNavTrigger.focus();
+    });
+
+    navOverlay.querySelectorAll('[data-nav], [data-open-consultation]').forEach(el => {
+      el.addEventListener('click', () => {
+        navOverlay.classList.remove('open');
+        document.body.style.overflow = '';
+        const mainContent = document.querySelector('main');
+        if (mainContent) mainContent.removeAttribute('inert');
+        if (lastNavTrigger) lastNavTrigger.focus();
+      });
+    });
 
     // ═══════════════════════════════════════════
     // STATS COUNTER ANIMATION
@@ -322,13 +430,21 @@
     // ═══════════════════════════════════════════
     // KEYBOARD SHORTCUTS
     // ═══════════════════════════════════════════
-    const shortcuts = { s: '#skills', a: '#about', p: '#projects', c: '#contact' };
+    const shortcuts = { s: '#skills', a: '#about', p: '#projects', b: '#blog', c: '#contact' };
     let kbdHelpVisible = false;
     document.addEventListener('keydown', e => {
+      const isFormField = e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.tagName === 'SELECT' || e.target.isContentEditable;
       if (e.key === 'Escape') {
-        document.querySelectorAll('dialog').forEach(d => d.close());
-        navOverlay.classList.remove('open');
+        document.querySelectorAll('dialog[open]').forEach(d => { d.close(); });
+        if (navOverlay.classList.contains('open')) {
+          navOverlay.classList.remove('open');
+          document.body.style.overflow = '';
+          const mainContent = document.querySelector('main');
+          if (mainContent) mainContent.removeAttribute('inert');
+        }
+        if (lastFocused) { lastFocused.focus(); lastFocused = null; }
       }
+      if (isFormField) return;
       if (shortcuts[e.key] && !e.ctrlKey && !e.metaKey && !e.altKey) {
         e.preventDefault();
         const target = document.querySelector(shortcuts[e.key]);
@@ -337,7 +453,7 @@
       if (e.key === '?' && !e.ctrlKey && !e.metaKey) {
         e.preventDefault();
         if (!kbdHelpVisible) {
-          showToast('S: Skills · A: About · P: Projects · C: Contact · ?: Help', 'info');
+          showToast('S: Skills · A: About · P: Projects · B: Blog · C: Contact · ?: Help', 'info');
           kbdHelpVisible = true;
           setTimeout(() => kbdHelpVisible = false, 4000);
         }
@@ -349,23 +465,23 @@
     // ═══════════════════════════════════════════
     document.getElementById('resume-download')?.addEventListener('click', () => {
       const blob = new Blob([
-`ALEX CHEN
+`ARUN KUMAR
 Full-Stack Developer & Designer
-alex@buildwithchen.com · github.com/alexchen · linkedin.com/in/alexchen
+arun@arunkumar.dev · github.com/arunkumar · linkedin.com/in/arunkumar
 
 EXPERIENCE
-Senior Full-Stack Engineer · Stripe (Remote) · 2024-Present
-  Payment infrastructure APIs, React Server Components migration.
-Frontend Lead · Vercel (San Francisco, CA) · 2022-2024
+Senior Full-Stack Engineer · Zoho (Chennai, India) · 2024-Present
+  Enterprise SaaS products, React Server Components migration.
+Frontend Lead · Freshworks (Chennai, India) · 2022-2024
   Dashboard architecture, design system for 100k+ developers.
-Full-Stack Developer · Rainbow Studios (New York, NY) · 2020-2022
-  12+ products shipped for fintech and health startups.
-Junior Developer · Digital Agency (Austin, TX) · 2018-2020
-  React, WordPress, CI/CD pipeline development.
+Full-Stack Developer · Cognizant (Chennai, India) · 2020-2022
+  12+ products shipped for fintech and health clients.
+Junior Developer · TCS (Chennai, India) · 2018-2020
+  React, Angular, CI/CD pipeline development.
 
 EDUCATION
-M.Sc. Computer Science · Stanford University · 2020-2022
-B.Sc. Software Engineering · UC Berkeley · 2016-2020
+M.Sc. Computer Science · IIT Madras · 2018-2020
+B.Tech Information Technology · Anna University · 2014-2018
 
 SKILLS
 React · TypeScript · Next.js · Node.js · Python · Go
@@ -375,7 +491,7 @@ Open source maintainer. Available for freelance and full-time.`
       ], { type: 'text/plain' });
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
-      a.href = url; a.download = 'Alex_Chen_Resume.txt';
+      a.href = url; a.download = 'Arun_Kumar_Resume.txt';
       document.body.appendChild(a); a.click();
       document.body.removeChild(a); URL.revokeObjectURL(url);
       showToast('Resume downloaded!', 'success');
@@ -399,7 +515,7 @@ Open source maintainer. Available for freelance and full-time.`
     // ═══════════════════════════════════════════
     // 3D TILT ON CARDS
     // ═══════════════════════════════════════════
-    document.querySelectorAll('.work-card, .insight-card, .service-card, .timeline-content').forEach(card => {
+    document.querySelectorAll('.work-card, .insight-card, .service-card, .timeline-content, .blog-card').forEach(card => {
       card.addEventListener('mousemove', e => {
         const r = card.getBoundingClientRect();
         const x = (e.clientX - r.left) / r.width - 0.5;
@@ -463,7 +579,7 @@ Open source maintainer. Available for freelance and full-time.`
     // PAGE VISIBILITY
     // ═══════════════════════════════════════════
     document.addEventListener('visibilitychange', () => {
-      document.title = document.hidden ? 'Come back to build something!' : 'Alex Chen — Full-Stack Developer & Designer';
+      document.title = document.hidden ? 'Come back to build something!' : 'Arun Kumar — Full-Stack Developer & Designer';
       if (!document.hidden) showToast('Welcome back!', 'info');
     });
 
@@ -473,3 +589,14 @@ Open source maintainer. Available for freelance and full-time.`
     console.log('%c Arun Kumar ', 'background: #FFFFFF; color: #E53935; font-size: 2rem; font-weight: bold; padding: 10px 20px; border: 3px solid #1A1A1A;');
     console.log('%c Full-stack developer from Chennai building bold experiences ', 'background: #E53935; color: white; font-size: 0.875rem; padding: 5px 10px;');
     console.log('%c Press ? for keyboard shortcuts ', 'background: #F2F2F2; color: #1A1A1A; font-size: 0.8rem; padding: 5px 10px; border: 3px solid #1A1A1A;');
+
+    // ═══════════════════════════════════════════
+    // WEB VITALS TRACKING
+    // ═══════════════════════════════════════════
+    if (typeof webVitals !== 'undefined') {
+      webVitals.onLCP(console.log);
+      webVitals.onFID(console.log);
+      webVitals.onCLS(console.log);
+      webVitals.onINP(console.log);
+      webVitals.onTTFB(console.log);
+    }

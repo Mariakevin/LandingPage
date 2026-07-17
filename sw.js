@@ -1,4 +1,4 @@
-const CACHE = 'alexchen-portfolio-v1';
+const CACHE = 'arunkumar-portfolio-v1';
 const ASSETS = [
   '/LandingPage/',
   '/LandingPage/index.html',

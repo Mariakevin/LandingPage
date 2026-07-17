@@ -9,6 +9,7 @@
   <meta property="og:description" content="Full-stack developer from Chennai building performant web apps with 7+ years of experience.">
   <meta property="og:type" content="website">
   <meta name="theme-color" content="#FFFFFF">
+  <meta name="color-scheme" content="light dark">
   <link rel="manifest" href="manifest.json">
   <link rel="icon" href="logo.png" type="image/png">
   <link rel="apple-touch-icon" href="logo.png">
@@ -16,8 +17,46 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://unpkg.com" crossorigin>
+
+  <!-- Preload critical fonts -->
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" as="style">
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" as="style">
+
+  <!-- Preload logo image -->
+  <link rel="preload" href="logo.png" as="image">
+
+  <!-- DNS prefetch for external resources -->
+  <link rel="dns-prefetch" href="https://unpkg.com">
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+  <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+
+  <!-- Prefetch next likely pages -->
+  <link rel="prefetch" href="404.html">
+
   <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
+  <script src="https://unpkg.com/web-vitals@dist/web-vitals.iife.js" defer></script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Arun Kumar",
+    "jobTitle": "Full-Stack Developer & Designer",
+    "url": "https://arunkumar.dev",
+    "sameAs": [
+      "https://github.com/arunkumar",
+      "https://linkedin.com/in/arunkumar",
+      "https://x.com/arunkumar"
+    ],
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Chennai",
+      "addressCountry": "IN"
+    },
+    "knowsAbout": ["React", "TypeScript", "Node.js", "Python", "Go", "Design Systems"]
+  }
+  </script>
 </head>
 <body>
   <!-- CURSOR -->
@@ -32,7 +71,7 @@
   <div class="scroll-percent" id="scroll-percent">0%</div>
 
   <!-- TOAST CONTAINER -->
-  <div class="toast-container" id="toast-container"></div>
+  <div class="toast-container" id="toast-container" role="status" aria-live="polite"></div>
 
   <!-- KEYBOARD HINT -->
   <div class="kbd-hint">Press <kbd>?</kbd> for shortcuts</div>
@@ -43,61 +82,74 @@
   <header>
     <nav aria-label="Main navigation">
       <a href="#top" class="logo">
-        <img src="logo.png" alt="AK" class="logo-img" width="44" height="44">
+        <img src="logo.png" alt="Arun Kumar logo" class="logo-img" width="44" height="44" fetchpriority="high">
         <span class="logo-text">Arun Kumar</span>
       </a>
       <div class="nav-links">
-        <a href="#skills" class="nav-link">Skills</a>
-        <a href="#about" class="nav-link">About</a>
-        <a href="#projects" class="nav-link">Projects</a>
-        <a href="#contact" class="nav-link">Contact</a>
+        <a href="#skills" class="nav-link" aria-label="Skills section">Skills</a>
+        <a href="#about" class="nav-link" aria-label="About section">About</a>
+        <a href="#projects" class="nav-link" aria-label="Projects section">Projects</a>
+        <a href="#blog" class="nav-link" aria-label="Blog section">Blog</a>
+        <a href="#contact" class="nav-link" aria-label="Contact section">Contact</a>
       </div>
+      <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
       <button class="nav-cta" data-open-consultation>Hire me →</button>
       <button class="menu-toggle" id="menu-toggle" aria-label="Open menu">Menu</button>
     </nav>
     <div class="nav-overlay" id="nav-overlay" role="navigation" aria-label="Mobile navigation">
       <button class="nav-overlay-close" id="nav-overlay-close" aria-label="Close menu">×</button>
-      <a href="#skills" class="nav-link" data-nav>Skills</a>
-      <a href="#about" class="nav-link" data-nav>About</a>
-      <a href="#projects" class="nav-link" data-nav>Projects</a>
-      <a href="#contact" class="nav-link" data-nav>Contact</a>
-      <button class="nav-cta" data-open-consultation>Hire me →</button>
+      <a href="#skills" class="nav-link" data-nav aria-label="Skills section">Skills</a>
+      <a href="#about" class="nav-link" data-nav aria-label="About section">About</a>
+      <a href="#projects" class="nav-link" data-nav aria-label="Projects section">Projects</a>
+      <a href="#blog" class="nav-link" data-nav aria-label="Blog section">Blog</a>
+      <a href="#contact" class="nav-link" data-nav aria-label="Contact section">Contact</a>
+      <button class="nav-cta" data-open-consultation aria-label="Start a project consultation">Hire me →</button>
     </div>
   </header>
 
   <main id="content" tabindex="-1">
     <!-- HERO -->
-    <section id="top" class="hero">
+    <section id="top" class="hero" aria-labelledby="hero-title">
       <div class="hero-bg">
         <div class="hero-shape"></div>
         <div class="hero-shape"></div>
         <div class="hero-shape scroll-rotate"></div>
       </div>
       <div class="hero-content">
-        <div class="reveal-up">
-          <div class="avatar">
+        <div class="hero-skeleton" id="hero-skeleton" aria-hidden="true">
+          <div class="skeleton skeleton-avatar"></div>
+          <div class="skeleton skeleton-badge"></div>
+          <div class="skeleton skeleton-heading"></div>
+          <div class="skeleton skeleton-text"></div>
+          <div class="skeleton skeleton-text short"></div>
+        </div>
+        <div class="reveal-up hero-content-inner" id="hero-content">
+          <div class="avatar" aria-hidden="true">
             <span>AK</span>
             <div class="avatar-pulse"></div>
           </div>
           <span class="hero-badge wiggle"><span class="pulse"></span> Available for freelance & full-time</span>
-          <h1 class="glitch-text">I build <span class="accent">bold products</span></h1>
+          <h1 id="hero-title" class="glitch-text">I build <span class="accent">bold products</span></h1>
           <p class="hero-text">Full-stack developer from Chennai turning complex problems into performant, thoughtfully designed web applications. <span id="typing-text"></span><span class="typing-cursor"></span></p>
           <div class="hero-buttons">
-            <button class="btn-primary" data-open-consultation><span>Start a project →</span></button>
-            <a href="#projects" class="btn-secondary">See my work</a>
-            <button class="btn-secondary" id="resume-download">Download CV</button>
+            <button class="btn-primary" data-open-consultation aria-label="Start a project consultation"><span>Start a project →</span></button>
+            <a href="#projects" class="btn-secondary" aria-label="See my work">See my work</a>
+            <button class="btn-secondary" id="resume-download" aria-label="Download resume as text file">Download CV</button>
           </div>
-          <div class="social-links">
-            <a href="https://github.com/arunkumar" target="_blank" rel="noopener" class="social-link" aria-label="GitHub">
+          <div class="social-links" aria-label="Social media links">
+            <a href="https://github.com/arunkumar" target="_blank" rel="noopener" class="social-link" aria-label="GitHub profile">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
             </a>
-            <a href="https://linkedin.com/in/arunkumar" target="_blank" rel="noopener" class="social-link" aria-label="LinkedIn">
+            <a href="https://linkedin.com/in/arunkumar" target="_blank" rel="noopener" class="social-link" aria-label="LinkedIn profile">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
             </a>
-            <a href="https://x.com/arunkumar" target="_blank" rel="noopener" class="social-link" aria-label="X / Twitter">
+            <a href="https://x.com/arunkumar" target="_blank" rel="noopener" class="social-link" aria-label="X / Twitter profile">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4l11.733 16h4.267l-11.733 -16zM4 20l6.768 -6.768M17.232 4.768l-3.464 3.464"/></svg>
             </a>
-            <a href="mailto:arun@arunkumar.dev" class="social-link" aria-label="Email">
+            <a href="mailto:arun@arunkumar.dev" class="social-link" aria-label="Send email">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
             </a>
           </div>
@@ -121,11 +173,11 @@
     </section>
 
     <!-- SKILLS -->
-    <section id="skills" class="services">
+    <section id="skills" class="services" aria-labelledby="skills-title">
       <div class="section-header">
         <div class="section-number reveal-scale">01</div>
         <div class="reveal-up">
-          <h2>Tools & technologies I wield daily.</h2>
+          <h2 id="skills-title">Tools & technologies I wield daily.</h2>
         </div>
       </div>
       <div class="services-bento">
@@ -189,11 +241,11 @@
     </section>
 
     <!-- ABOUT -->
-    <section id="about" class="approach">
+    <section id="about" class="approach" aria-labelledby="about-title">
       <div class="approach-content">
         <div class="reveal-left">
           <p class="hero-badge" style="background: var(--accent); color: var(--accent-text);">02 / About me</p>
-          <h2>Code is craft. Products are partnerships.</h2>
+          <h2 id="about-title">Code is craft. Products are partnerships.</h2>
           <p>I started coding at 14, building simple games and automation scripts. That curiosity turned into a career across startups, agencies, and product teams in Chennai and beyond. I believe great software comes from understanding the problem first — the tech stack is just the medium.</p>
           <p style="margin-top: 1.5rem;">When I'm not shipping code, you'll find me contributing to open source, writing about frontend architecture, or exploring Chennai's vibrant tech community and maker spaces.</p>
           <div class="edu-timeline">
@@ -230,11 +282,11 @@
     </section>
 
     <!-- EXPERIENCE -->
-    <section class="timeline">
+    <section class="timeline" aria-labelledby="experience-title">
       <div class="section-header">
-        <div class="section-number reveal-scale" style="background: var(--blue); color: #FFFFFF;">03</div>
+        <div class="section-number reveal-scale" style="background: var(--blue); color: var(--text-inverse);">03</div>
         <div class="reveal-up">
-          <h2>Where I've been, what I've built.</h2>
+          <h2 id="experience-title">Where I've been, what I've built.</h2>
         </div>
       </div>
       <div class="timeline-grid">
@@ -278,21 +330,28 @@
     </section>
 
     <!-- PROJECTS -->
-    <section id="projects" class="work">
+    <section id="projects" class="work" aria-labelledby="projects-title">
       <div class="section-header">
-        <div class="section-number reveal-scale" style="background: var(--accent); color: #FFFFFF;">04</div>
+        <div class="section-number reveal-scale" style="background: var(--accent); color: var(--text-inverse);">04</div>
         <div class="reveal-up">
-          <h2>Projects that speak for themselves.</h2>
+          <h2 id="projects-title">Projects that speak for themselves.</h2>
         </div>
       </div>
-      <div class="filter-bar">
-        <button class="filter-btn active" data-filter="all" aria-pressed="true">All</button>
-        <button class="filter-btn" data-filter="web" aria-pressed="false">Web Apps</button>
-        <button class="filter-btn" data-filter="design" aria-pressed="false">Design</button>
-        <button class="filter-btn" data-filter="backend" aria-pressed="false">Backend</button>
+      <div class="filter-bar" role="group" aria-label="Project filters">
+        <button class="filter-btn active" data-filter="all" aria-pressed="true" aria-label="Show all projects">All</button>
+        <button class="filter-btn" data-filter="web" aria-pressed="false" aria-label="Show web apps">Web Apps</button>
+        <button class="filter-btn" data-filter="design" aria-pressed="false" aria-label="Show design projects">Design</button>
+        <button class="filter-btn" data-filter="backend" aria-pressed="false" aria-label="Show backend projects">Backend</button>
       </div>
       <div class="work-grid">
         <article class="work-card large reveal-up corner-decor" data-category="web">
+          <div class="work-card-skeleton" aria-hidden="true">
+            <div class="skeleton skeleton-badge"></div>
+            <div class="skeleton skeleton-heading"></div>
+            <div class="skeleton skeleton-text"></div>
+            <div class="skeleton skeleton-text short"></div>
+          </div>
+          <div class="work-card-content">
           <p class="work-label">E-commerce platform</p>
           <p class="work-stat">$2.4m</p>
           <h3>Revenue in year one</h3>
@@ -304,9 +363,10 @@
             <span class="tech-tag">Tailwind</span>
           </div>
           <div class="project-links">
-            <a href="https://github.com" class="project-link" target="_blank" rel="noopener">Live demo →</a>
-            <a href="https://github.com" class="project-link" target="_blank" rel="noopener">Source →</a>
+            <a href="https://github.com" class="project-link" target="_blank" rel="noopener" aria-label="Live demo">Live demo →</a>
+            <a href="https://github.com" class="project-link" target="_blank" rel="noopener" aria-label="Source code">Source →</a>
           </div>
+        </div>
         </article>
         <article class="work-card blue reveal-right stagger-1 corner-decor" data-category="backend">
           <p class="work-label">Fintech dashboard</p>
@@ -320,8 +380,8 @@
             <span class="tech-tag">Redis</span>
           </div>
           <div class="project-links">
-            <a href="https://github.com" class="project-link" target="_blank" rel="noopener">Live demo →</a>
-            <a href="https://github.com" class="project-link" target="_blank" rel="noopener">Source →</a>
+            <a href="https://github.com" class="project-link" target="_blank" rel="noopener" aria-label="Live demo">Live demo →</a>
+            <a href="https://github.com" class="project-link" target="_blank" rel="noopener" aria-label="Source code">Source →</a>
           </div>
         </article>
         <article class="work-card orange reveal-right stagger-2 corner-decor" data-category="design">
@@ -336,19 +396,58 @@
             <span class="tech-tag">CSS vars</span>
           </div>
           <div class="project-links">
-            <a href="https://github.com" class="project-link" target="_blank" rel="noopener">Live demo →</a>
-            <a href="https://github.com" class="project-link" target="_blank" rel="noopener">Source →</a>
+            <a href="https://github.com" class="project-link" target="_blank" rel="noopener" aria-label="Live demo">Live demo →</a>
+            <a href="https://github.com" class="project-link" target="_blank" rel="noopener" aria-label="Source code">Source →</a>
           </div>
         </article>
       </div>
     </section>
 
-    <!-- TESTIMONIALS -->
-    <section id="testimonials" class="insights">
+    <!-- BLOG -->
+    <section id="blog" class="blog" aria-labelledby="blog-title">
       <div class="section-header">
-        <div class="section-number reveal-scale" style="background: var(--accent); color: #FFFFFF;">05</div>
+        <div class="section-number reveal-scale" style="background: var(--pink); color: var(--text-inverse);">05</div>
         <div class="reveal-up">
-          <h2>What people say about working with me.</h2>
+          <h2 id="blog-title">Writing & case studies.</h2>
+        </div>
+      </div>
+      <div class="blog-grid">
+        <article class="blog-card reveal-up stagger-1">
+          <div class="blog-meta">
+            <span class="blog-date">2026-06-15</span>
+            <span class="blog-category">Case Study</span>
+          </div>
+          <h3>Building a Design System That Scales</h3>
+          <p class="blog-excerpt">How we unified 12 product teams with a token-driven component library that reduced inconsistency by 60% and accelerated shipping across the org.</p>
+          <span class="blog-read-time">8 min read</span>
+        </article>
+        <article class="blog-card reveal-up stagger-2">
+          <div class="blog-meta">
+            <span class="blog-date">2026-05-02</span>
+            <span class="blog-category">Technical</span>
+          </div>
+          <h3>React Server Components in Production</h3>
+          <p class="blog-excerpt">Lessons from migrating a 200k-line dashboard to RSC — performance wins, gotchas, and the tooling gaps we hit along the way.</p>
+          <span class="blog-read-time">12 min read</span>
+        </article>
+        <article class="blog-card reveal-up stagger-3">
+          <div class="blog-meta">
+            <span class="blog-date">2026-03-20</span>
+            <span class="blog-category">Design</span>
+          </div>
+          <h3>The Art of Neobrutalist UI</h3>
+          <p class="blog-excerpt">Why bold borders and offset shadows create memorable interfaces — and how to use restraint to keep it tasteful.</p>
+          <span class="blog-read-time">6 min read</span>
+        </article>
+      </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section id="testimonials" class="insights" aria-labelledby="testimonials-title">
+      <div class="section-header">
+        <div class="section-number reveal-scale" style="background: var(--accent); color: var(--text-inverse);">06</div>
+        <div class="reveal-up">
+          <h2 id="testimonials-title">What people say about working with me.</h2>
         </div>
       </div>
       <div class="insights-grid">
@@ -365,7 +464,7 @@
           <h3>"Rare combination of deep technical skill and genuine product thinking. The design system Arun built saved us 3 months of engineering time and unified 4 product teams."</h3>
           <div class="testimonial-author">
             <div class="testimonial-avatar" style="background: var(--accent);">RK</div>
-            <span class="insight-link">— RaviKrishnan</span>
+            <span class="insight-link">— Ravi Krishnan</span>
           </div>
         </div>
         <div class="insight-card reveal-up stagger-3" style="cursor: default;">
@@ -388,10 +487,10 @@
     </section>
 
     <!-- CTA -->
-    <section id="contact" class="cta">
+    <section id="contact" class="cta" aria-labelledby="contact-title">
       <div class="cta-content reveal-scale">
         <span class="cta-badge">Let's build something</span>
-        <h2>Got a project in mind?</h2>
+        <h2 id="contact-title">Got a project in mind?</h2>
         <p>Whether you need a full application, a design system, or a technical sounding board — I'd love to hear about it.</p>
         <div class="contact-info">
           <span class="contact-info-item">
@@ -407,39 +506,39 @@
             Available on @arunkumar
           </span>
         </div>
-        <button class="cta-btn" data-open-consultation style="margin-top: 2rem;"><span>Start a conversation →</span></button>
+        <button class="cta-btn" data-open-consultation style="margin-top: 2rem;" aria-label="Start a conversation about a project"><span>Start a conversation →</span></button>
       </div>
     </section>
   </main>
 
   <!-- BACK TO TOP -->
-  <a href="#top" class="back-to-top" id="back-to-top" aria-label="Back to top">↑</a>
+  <a href="#top" class="back-to-top" id="back-to-top" aria-label="Back to top" aria-hidden="true" tabindex="-1">↑</a>
 
   <!-- FOOTER -->
   <footer>
     <div class="footer-content">
       <div>
         <div class="footer-logo">
-          <img src="logo.png" alt="AK" class="logo-img" width="40" height="40">
+          <img src="logo.png" alt="Arun Kumar logo" class="logo-img" width="40" height="40" loading="lazy" decoding="async">
           <span class="footer-logo-text">Arun Kumar</span>
         </div>
         <p class="footer-desc">Full-stack developer from Chennai building bold, performant web experiences.</p>
       </div>
       <div class="footer-links" style="flex-direction: column; align-items: flex-end; gap: 1rem;">
         <div style="display: flex; gap: 2rem;" aria-label="Footer navigation">
-          <a href="#skills" class="footer-link">Skills</a>
-          <a href="#projects" class="footer-link">Projects</a>
-          <a href="#contact" class="footer-link">Contact</a>
-          <button class="footer-link" data-open-policy>Privacy</button>
+          <a href="#skills" class="footer-link" aria-label="Skills section">Skills</a>
+          <a href="#projects" class="footer-link" aria-label="Projects section">Projects</a>
+          <a href="#contact" class="footer-link" aria-label="Contact section">Contact</a>
+          <button class="footer-link" data-open-policy aria-label="Open privacy notice">Privacy</button>
         </div>
         <div class="social-links" style="margin-top: 0;">
-          <a href="https://github.com/arunkumar" target="_blank" rel="noopener" class="social-link" aria-label="GitHub" style="width: 36px; height: 36px; background: transparent; border-color: var(--text-muted); color: var(--text-muted); box-shadow: none;">
+          <a href="https://github.com/arunkumar" target="_blank" rel="noopener" class="social-link" aria-label="GitHub profile" style="width: 36px; height: 36px; background: transparent; border-color: var(--text-muted); color: var(--text-muted); box-shadow: none;">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 16px; height: 16px;"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
           </a>
-          <a href="https://linkedin.com/in/arunkumar" target="_blank" rel="noopener" class="social-link" aria-label="LinkedIn" style="width: 36px; height: 36px; background: transparent; border-color: var(--text-muted); color: var(--text-muted); box-shadow: none;">
+          <a href="https://linkedin.com/in/arunkumar" target="_blank" rel="noopener" class="social-link" aria-label="LinkedIn profile" style="width: 36px; height: 36px; background: transparent; border-color: var(--text-muted); color: var(--text-muted); box-shadow: none;">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 16px; height: 16px;"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
           </a>
-          <a href="https://x.com/arunkumar" target="_blank" rel="noopener" class="social-link" aria-label="X / Twitter" style="width: 36px; height: 36px; background: transparent; border-color: var(--text-muted); color: var(--text-muted); box-shadow: none;">
+          <a href="https://x.com/arunkumar" target="_blank" rel="noopener" class="social-link" aria-label="X / Twitter profile" style="width: 36px; height: 36px; background: transparent; border-color: var(--text-muted); color: var(--text-muted); box-shadow: none;">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 16px; height: 16px;"><path d="M4 4l11.733 16h4.267l-11.733 -16zM4 20l6.768 -6.768M17.232 4.768l-3.464 3.464"/></svg>
           </a>
         </div>
@@ -488,7 +587,7 @@
           </div>
         </div>
         <button class="form-submit" type="submit">Send enquiry →</button>
-        <p id="form-status" class="form-status" style="display: none;" role="status"></p>
+        <p id="form-status" class="form-status" style="display: none;" role="status" aria-live="polite"></p>
       </form>
     </div>
   </dialog>
