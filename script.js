@@ -54,7 +54,7 @@
     document.addEventListener('mousedown', () => cursorOuter.classList.add('clicking'));
     document.addEventListener('mouseup', () => cursorOuter.classList.remove('clicking'));
 
-    document.querySelectorAll('a, button, .service-card, .work-card, .insight-card, .step, .blog-card').forEach(el => {
+    document.querySelectorAll('a, button, .skill-card, .project-card, .testimonial-card, .step, .blog-card').forEach(el => {
       el.addEventListener('mouseenter', () => cursorOuter.classList.add('hovering'));
       el.addEventListener('mouseleave', () => cursorOuter.classList.remove('hovering'));
     });
@@ -237,7 +237,7 @@
       if (heroSkeleton) heroSkeleton.classList.add('hidden');
       if (heroContent) heroContent.classList.add('visible');
 
-      document.querySelectorAll('.work-card-skeleton').forEach(skeleton => {
+      document.querySelectorAll('.project-card-skeleton').forEach(skeleton => {
         skeleton.classList.add('hidden');
         const content = skeleton.nextElementSibling;
         if (content) content.classList.add('visible');
@@ -373,7 +373,7 @@
     // PROJECT FILTER
     // ═══════════════════════════════════════════
     const filterBtns = document.querySelectorAll('.filter-btn');
-    const projectCards = document.querySelectorAll('.work-card');
+    const projectCards = document.querySelectorAll('.project-card');
     filterBtns.forEach(btn => {
       btn.addEventListener('click', () => {
         filterBtns.forEach(b => { b.classList.remove('active'); b.setAttribute('aria-pressed', 'false'); });
@@ -515,7 +515,7 @@ Open source maintainer. Available for freelance and full-time.`
     // ═══════════════════════════════════════════
     // 3D TILT ON CARDS
     // ═══════════════════════════════════════════
-    document.querySelectorAll('.work-card, .insight-card, .service-card, .timeline-content, .blog-card').forEach(card => {
+    document.querySelectorAll('.project-card, .testimonial-card, .skill-card, .timeline-content, .blog-card').forEach(card => {
       card.addEventListener('mousemove', e => {
         const r = card.getBoundingClientRect();
         const x = (e.clientX - r.left) / r.width - 0.5;
