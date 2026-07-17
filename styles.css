@@ -140,7 +140,7 @@
     --text-primary: #F2F2F2;
     --text-secondary: #CCCCCC;
     --text-muted: #999999;
-    --text-inverse: #1A1A1A;
+    --text-inverse: #FFFFFF;
     --shadow-color: #000000;
     --border-default: 3px solid var(--text-primary);
     --overlay-subtle: rgba(255, 255, 255, 0.08);
