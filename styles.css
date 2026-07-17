@@ -1394,6 +1394,7 @@
     border: 3px solid var(--accent-primary);
     background: rgba(74, 222, 128, 0.12);
     animation: bounce-in 0.5s var(--ease-spring);
+    display: none;
   }
 
   /* ─── PROFILE AVATAR ─── */
@@ -1955,6 +1956,41 @@
   }
   .filter-btn:hover { background: var(--surface-dark); color: var(--text-inverse); transform: translate(-2px, -2px); box-shadow: var(--shadow-md); }
   .filter-btn.active { background: var(--accent-primary); color: var(--text-inverse); border-color: var(--accent-primary); }
+
+  /* ─── SECTION NUMBER VARIANTS ─── */
+  .section-number--blue { background: var(--blue); color: var(--text-inverse); }
+  .section-number--accent { background: var(--accent); color: var(--text-inverse); }
+  .section-number--pink { background: var(--pink); color: var(--text-inverse); }
+
+  /* ─── TIMELINE CARD ─── */
+  .timeline-card { background: var(--bg); }
+
+  /* ─── ABOUT BADGE VARIANT ─── */
+  .hero-badge--accent { background: var(--accent); color: var(--accent-text); }
+
+  /* ─── INSIGHT CARD STATIC ─── */
+  .insight-card--static { cursor: default; }
+
+  /* ─── TESTIMONIAL AVATAR COLORS ─── */
+  .testimonial-avatar--accent { background: var(--accent); }
+  .testimonial-avatar--blue { background: var(--blue); }
+
+  /* ─── FOOTER LAYOUT ─── */
+  .footer-links--col { flex-direction: column; align-items: flex-end; gap: 1rem; }
+  .footer-nav { display: flex; gap: 2rem; }
+  .social-links--flush { margin-top: 0; }
+  .social-link--footer {
+    width: 36px; height: 36px;
+    background: transparent;
+    border-color: var(--text-muted);
+    color: var(--text-muted);
+    box-shadow: none;
+  }
+  .social-link--footer svg { width: 16px; height: 16px; }
+
+  /* ─── SPACING UTILITIES ─── */
+  .mt-6 { margin-top: 1.5rem; }
+  .mt-8 { margin-top: 2rem; }
 
   /* ─── CONTENT VISIBILITY (rendering optimization for below-fold sections) ─── */
   .services, .approach, .timeline, .work, .blog, .insights, .cta {

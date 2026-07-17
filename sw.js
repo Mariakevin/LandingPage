@@ -1,10 +1,10 @@
 const CACHE = 'arunkumar-portfolio-v1';
 const ASSETS = [
-  '/LandingPage/',
-  '/LandingPage/index.html',
-  '/LandingPage/styles.css',
-  '/LandingPage/script.js',
-  '/LandingPage/manifest.json'
+  './',
+  './index.html',
+  './styles.css',
+  './script.js',
+  './manifest.json'
 ];
 self.addEventListener('install', e => {
   e.waitUntil(
@@ -28,6 +28,6 @@ self.addEventListener('fetch', e => {
         caches.open(CACHE).then(c => c.put(e.request, clone));
       }
       return r;
-    }).catch(() => caches.match('/LandingPage/')))
+    }).catch(() => caches.match('./')))
   );
 });

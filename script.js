@@ -593,7 +593,7 @@ Open source maintainer. Available for freelance and full-time.`
     // ═══════════════════════════════════════════
     // WEB VITALS TRACKING
     // ═══════════════════════════════════════════
-    if (typeof webVitals !== 'undefined') {
+    if (typeof webVitals !== 'undefined' && (location.hostname === 'localhost' || location.hostname === '127.0.0.1')) {
       webVitals.onLCP(console.log);
       webVitals.onFID(console.log);
       webVitals.onCLS(console.log);
