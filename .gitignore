@@ -1,3 +1,4 @@
 outputs/
 .playwright-mcp/
+.opencode/
 site-*.png
